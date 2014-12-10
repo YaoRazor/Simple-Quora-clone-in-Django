@@ -59,20 +59,20 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
 import dj_database_url
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_deploy',
+        'USER': 'django_login',
+        'PASSWORD': 'ahxhc2804',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
 DATABASES['default'] = dj_database_url.config()
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
-
-#DATABASES = {
-    #'default': {
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'NAME': 'django_deploy',
-        #'USER': 'django_login',
-        #'PASSWORD': 'ahxhc2804',
-        #'HOST': '127.0.0.1',
-        #'PORT': '5432',
-    #}
-#}
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
