@@ -64,17 +64,22 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #     }
 # }
 
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'NAME': 'django_deploy',
+        #'USER': 'django_login',
+        #'PASSWORD': 'ahxhc2804',
+        #'HOST': '127.0.0.1',
+        #'PORT': '5432',
+    #}
+#}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_deploy',
-        'USER': 'django_login',
-        'PASSWORD': 'ahxhc2804',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
     }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
