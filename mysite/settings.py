@@ -72,7 +72,7 @@ DATABASES = {
    }
 }
 
-### These values are used to porting to Heroku Paas  ###
+### PORTING: These values are used to porting to Heroku Paas  ###
 DATABASES['default'] = dj_database_url.config()
 DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
