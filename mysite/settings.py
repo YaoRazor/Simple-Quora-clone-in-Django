@@ -72,8 +72,9 @@ DATABASES = {
    }
 }
 
-DATABASES['default'] = dj_database_url.config()
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
+### These values are used to porting to Heroku Paas  ###
+#DATABASES['default'] = dj_database_url.config()
+#DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
@@ -81,7 +82,6 @@ DATABASES['default']['ENGINE'] = 'django_postgrespool'
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/New_York'
-#TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -100,6 +100,3 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-#TEMPLATE_DIRS = (
-#    os.path.join(BASE_DIR,  'templates'),
-#)
