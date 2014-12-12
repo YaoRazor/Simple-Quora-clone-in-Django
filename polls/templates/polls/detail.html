@@ -8,6 +8,6 @@
     <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
     <label for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br />
 {% endfor %}
-<input type="submit" value="Vote" />
-{#<input type="submit" value="Down">#}
+<input type="submit" name="VoteUp" value="Up" />
+<input type="submit" name="VoteDown" value="Down">
 </form>

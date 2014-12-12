@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from polls.models import Question, Answers
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
 import logging
@@ -43,8 +43,17 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        #logger._log("some log")
-        #if request.POST['answer'].has
+        #print "hello"
+        #if request.POST.has_key('Up'):
+        if 'VoteUp' in request.POST:
+            print "Up"
+        #elif request.POST.has_key('Down'):
+        elif 'VoteDown' in request.POST:
+            print "Down"
+        else:
+            return HttpResponse("Neither Up or Down")
+
+
 
         selected_choice.votes += 1
         selected_choice.save()
