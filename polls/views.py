@@ -3,6 +3,7 @@ from polls.models import Question, Answers
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
+from django.utils import timezone
 import logging
 
 logger = logging.getLogger(__name__)
@@ -13,7 +14,6 @@ logger = logging.getLogger(__name__)
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    print request.user.username
     context = {'latest_question_list': latest_question_list, 'username': request.user.username}
     return render(request, 'polls/index.html', context)
 
@@ -57,3 +57,24 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
+
+
+def goto_add_page(request):
+    return render(request, 'polls/ask.html')
+
+
+def add_question(request):
+    if 'Submit' in request.POST:
+        #print "start to create new question"
+        new_question_text = request.POST['question_text']
+        new_question = Question(question_text=new_question_text, pub_date=timezone.now(), author=request.user)
+        new_question.save()
+        #print "finish to print new question"
+        return HttpResponseRedirect(reverse('polls:index'))
+    elif 'Cancel' in request.POST:
+        return HttpResponseRedirect(reverse('polls:ask'))
+        #print "Cancel"
+    else:
+        return HttpResponse("Submit new question error")
+
+

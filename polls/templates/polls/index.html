@@ -1,3 +1,4 @@
+<div>All question list</div>
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
@@ -5,7 +6,9 @@
     {% endfor %}
     </ul>
 
-    <p>Hello, {{ username }}</p>
+    <p>Hello, {{ username }} !!!. Do you have questions about your life and dreams</p>
+    <p> <a href="{% url 'polls:ask' %}">Shoot your question </a> </p>
+
 {% else %}
     <p>No questions are available.</p>
 {% endif %}

@@ -14,4 +14,6 @@ urlpatterns = patterns('',
     url(r'^(?P<pk>\d+)/results/$', views.ResultsView.as_view(), name='results'),
     # # ex: /polls/5/vote/
     url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
+    url(r'^ask/$', views.goto_add_page, name='ask'),
+    url(r'^add_question/$', views.add_question, name='ask_question'),
 )
