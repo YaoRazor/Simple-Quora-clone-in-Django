@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from polls.models import Question, Choice
+from polls.models import Question, Answers
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.
@@ -32,14 +35,17 @@ class ResultsView(generic.DetailView):
 def vote(request, question_id):
     p = get_object_or_404(Question, pk=question_id)
     try:
-        selected_choice = p.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
+        selected_choice = p.answers_set.get(pk=request.POST['answer'])
+    except (KeyError, Answers.DoesNotExist):
         # Redisplay the question voting form.
         return render(request, 'polls/detail.html', {
             'question': p,
             'error_message': "You didn't select a choice.",
         })
     else:
+        #logger._log("some log")
+        #if request.POST['answer'].has
+
         selected_choice.votes += 1
         selected_choice.save()
         # Always return an HttpResponseRedirect after successfully dealing
