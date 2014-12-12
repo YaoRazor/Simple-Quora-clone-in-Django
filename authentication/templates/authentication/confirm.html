@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+{% if success %}
+    Your account has been activated and is now ready for use.  <a href='{% url 'login' %}'>Login here</a>
+{% else %}{% if expired %}
+    Oops!  You waited too long!  <a href='{% url 'register' %}'>Return to the login page and try again</a>
+{% else %}{% if has_account %}
+    You already have an account!  <a href="{% url 'list_questions' %}">Hop in the action</a>
+{% endif %}
+{% endif %}
+{% endif %}
+</body>
+</html>

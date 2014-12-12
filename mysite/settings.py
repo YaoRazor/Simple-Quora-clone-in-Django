@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls'
+    'polls',
+    'authentication'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,8 +74,8 @@ DATABASES = {
 }
 
 ### PORTING: These values are used to porting to Heroku Paas  ###
-DATABASES['default'] = dj_database_url.config()
-DATABASES['default']['ENGINE'] = 'django_postgrespool'
+#DATABASES['default'] = dj_database_url.config()
+#DATABASES['default']['ENGINE'] = 'django_postgrespool'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

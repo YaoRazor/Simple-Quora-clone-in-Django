@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+{% if has_account %}
+    <p>You already have an account!  There should be a password recovery thing here, huh?</p>
+{% else  %}{% if created %}
+    <p>Your account has been created.  Check your email for a confirmation link to login</p>
+{% else %}
+    <form method='post' action='{% url 'register' %}'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit'>
+    </form>
+{% endif %}
+{% endif %}
+
+</body>
+</html>

@@ -1,9 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime
+
 
 from django.utils import timezone
 
 # Create your models here.
+# Create QuestionAuthor module
+# class QuestionAuthor(models.Model):
+#     author =
 
 
 class Question(models.Model):
@@ -15,6 +20,8 @@ class Question(models.Model):
 
     def was_published_recently(self):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+    author = models.ForeignKey(User, null=True)
     was_published_recently.admin_order_field = 'pub_date'
     was_published_recently.boolean = True
     was_published_recently.short_description = 'Published recently?'
@@ -27,3 +34,5 @@ class Choice(models.Model):
 
     def __unicode__(self):
         return self.choice_text
+
+    author = models.ForeignKey(User, null=True)

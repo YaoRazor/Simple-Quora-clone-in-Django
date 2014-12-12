@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<p>No account?  <a href="{% url 'authentication:register' %}">Register here</a></p>
+{{ error }}
+<form method='post' action='{% url 'authentication:login' %}'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type='submit'>
+</form>
+
+{# {% if form.errors %}#}
+{#    <p class="error">Sorry, that's not a valid username or password</p>#}
+{#  {% endif %}#}
+{##}
+{#  <form action="/accounts/confirm/" method="post">{% csrf_token %}#}
+{#    <label for="username">User name:</label>#}
+{#    <input type="text" name="username" value="" id="username">#}
+{#    <label for="password">Password:</label>#}
+{#    <input type="password" name="password" value="" id="password">#}
+{##}
+{#    <input type="submit" value="login" />#}
+{##}
+{#  </form>#}
+
+</body>
+</html>

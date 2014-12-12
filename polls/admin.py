@@ -21,7 +21,7 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
     # specify which fields will be displayed on admin page
-    list_display = ('question_text', 'pub_date', 'was_published_recently')
+    list_display = ('question_text', 'pub_date', 'was_published_recently', 'author')
 
     # specify the field that is used to filter Question
     list_filter = ['pub_date']
