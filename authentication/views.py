@@ -3,6 +3,7 @@ from django.shortcuts import render
 import hashlib
 import datetime
 
+from django.core.urlresolvers import reverse
 from django.contrib import auth
 from django.contrib.auth import authenticate
 from django.core.context_processors import csrf
@@ -11,6 +12,8 @@ from django.shortcuts import render_to_response, get_object_or_404
 from authentication.models import UserProfile
 from authentication.forms import RegistrationForm, LoginForm
 from django.http import HttpResponse
+from polls.models import Question
+
 
 def register(request):
     return HttpResponse("Hello register")
@@ -61,43 +64,17 @@ def confirm(request, activation_key):
     user_account.save()
     return render_to_response('authentication/confirm.html', {'success': True})
 
-def login(request):
-    if request.user.is_authenticated():
-        redirect_to = request.REQUEST.get('next') or '/'
-        #return HttpResponse("redirect")
-        return HttpResponseRedirect(redirect_to)
-    if request.method == 'GET':
-        c = {}
-        c.update(csrf(request))
-        c['form'] = LoginForm()
-        return render_to_response('authentication/login.html', c)
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            data = form.clean()
-            user = authenticate(username=data['username'], password=data['password'])
-            if user and user.is_active:
-                auth.login(request, user)
-                redirect_to = request.REQUEST.get('next') or '/'
-                return HttpResponseRedirect(redirect_to)
-            else:
-                c = {}
-                c.update(csrf(request))
-                c['error'] = 'this username could not be authenticated.  Please ensure this user exists and has been activated before logging in'
-                c['form'] = form
-                return render_to_response('authentication/login.html', c)
-        c = {}
-        c.update(csrf(request))
-        c['form'] = form
-        c['error'] = 'the username and/or password is incorrect'
-        return render_to_response('authentication/login.html', c)
-    return HttpResponseRedirect('/')
 
 def logout(request):
     if request.user.is_authenticated:
         auth.logout(request)
     return render_to_response('authentication/logout.html',  {})
 
+def profile(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('polls:index'))
+    else:
+        return HttpResponse("login not successfully")
+        return render_to_response('authentication/logout.html',  {})
 
 
-# Create your views here.

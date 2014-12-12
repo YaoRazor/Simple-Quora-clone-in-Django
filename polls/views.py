@@ -11,13 +11,11 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 
 
-class IndexView(generic.ListView):
-    template_name = 'polls/index.html'
-    context_object_name = 'latest_question_list'
-
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return Question.objects.order_by('-pub_date')[:10]
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    print request.user.username
+    context = {'latest_question_list': latest_question_list, 'username': request.user.username}
+    return render(request, 'polls/index.html', context)
 
 
 
@@ -43,19 +41,17 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        #print "hello"
-        #if request.POST.has_key('Up'):
         if 'VoteUp' in request.POST:
+            selected_choice.up_votes += 1
             print "Up"
-        #elif request.POST.has_key('Down'):
         elif 'VoteDown' in request.POST:
+            selected_choice.down_votes +=1
             print "Down"
         else:
             return HttpResponse("Neither Up or Down")
 
+        print request.user
 
-
-        selected_choice.votes += 1
         selected_choice.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a

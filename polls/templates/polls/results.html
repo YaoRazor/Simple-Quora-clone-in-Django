@@ -2,7 +2,9 @@
 
 <ul>
 {% for answer in question.answers_set.all %}
-    <li>{{ answer.answer_text }} -- {{ answer.votes }} vote{{ answer.votes|pluralize }}</li>
+    <li>{{ answer.answer_text }} -- {{ answer.up_votes }} vote{{ answer.up_votes|pluralize }}
+    {{ answer.down_votes }} vote{{ answer.down_votes|pluralize }}
+    </li>
 {% endfor %}
 </ul>
 
