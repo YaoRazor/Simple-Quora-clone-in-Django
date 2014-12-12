@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}My Base Template{% endblock %}</title>
+
+    <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/default.css" >
+	
+    <script src="{% get_static_prefix %}js/jquery-2.0.0.min.js"></script>
+    <script src="{% get_static_prefix %}js/ajax.js"></script>
+    
+</head>
+
+<body>
+	<div id="page">
+
+    <div id="sidebar">
+        {% block sidebar %}
+        <ul>
+            <li><a href="/polls/">Articles</a></li>
+            <li><a href="/admin/">Admin</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+    
+	{% if messages %}
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+	{% endif %}
+        
+        {% block content %}This is the content area{% endblock %}
+	
+	<div class="clearfix"></div>
+    </div>
+	
+	</div>
+		
+</body>
+</html>
