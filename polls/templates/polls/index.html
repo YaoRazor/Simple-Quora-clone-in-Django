@@ -19,3 +19,19 @@
 {% else %}
     <p>No questions are available.</p>
 {% endif %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if latest_question_list.has_previous %}
+            <a href="?page={{ latest_question_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ latest_question_list.number }} of {{ latest_question_list.paginator.num_pages }}.
+        </span>
+
+        {% if latest_question_list.has_next %}
+            <a href="?page={{ latest_question_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>

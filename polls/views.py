@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
 
 logger = logging.getLogger(__name__)
@@ -14,7 +15,24 @@ logger = logging.getLogger(__name__)
 
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    # latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    question_list = Question.objects.order_by('-pub_date')
+    paginator = Paginator(question_list, 10)
+
+
+    page = request.GET.get('page')
+    try:
+        latest_question_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        latest_question_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        latest_question_list = paginator.page(paginator.num_pages)
+
+
+
+
     context = {'latest_question_list': latest_question_list, 'username': request.user.username}
     return render(request, 'polls/index.html', context)
 
