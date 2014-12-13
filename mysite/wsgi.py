@@ -15,5 +15,5 @@ application = get_wsgi_application()
 
 # PORTING: These two lines are useful when serving static files and templates on Heroku
 # if develop locally, skip these two lines
-#from dj_static import Cling
-#application = Cling(get_wsgi_application())
+from dj_static import Cling
+application = Cling(get_wsgi_application())
