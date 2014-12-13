@@ -33,6 +33,7 @@ class Answers(models.Model):
     pub_date = models.DateTimeField('date published')
     up_votes = models.IntegerField(default=0)
     down_votes = models.IntegerField(default=0)
+    net_votes = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.answer_text

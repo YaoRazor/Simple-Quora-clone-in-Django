@@ -39,13 +39,18 @@ def index(request):
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/detail.html', {'question': question})
+    answers = question.answers_set.order_by('-net_votes')
+    return render(request, 'polls/detail.html', {'question': question, 'answers': answers})
 
 
-class ResultsView(generic.DetailView):
-    model = Question
-    template_name = 'polls/results.html'
+# class ResultsView(generic.DetailView):
+#     model = Question
+#     template_name = 'polls/results.html'
 
+def results(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    answers = question.answers_set.order_by('-net_votes')
+    return render(request, 'polls/results.html', {'question': question, 'answers': answers})
 
 
 def vote(request, question_id):
@@ -61,9 +66,11 @@ def vote(request, question_id):
     else:
         if 'VoteUp' in request.POST:
             selected_choice.up_votes += 1
+            selected_choice.net_votes = selected_choice.up_votes-selected_choice.down_votes
             print "Up"
         elif 'VoteDown' in request.POST:
             selected_choice.down_votes +=1
+            selected_choice.net_votes = selected_choice.up_votes-selected_choice.down_votes
             print "Down"
         else:
             return HttpResponse("Neither Up or Down")

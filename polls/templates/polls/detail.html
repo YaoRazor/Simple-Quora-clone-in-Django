@@ -5,13 +5,13 @@
 
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
-{% for answer in question.answers_set.all %}
+{% for answer in answers %}
     <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
     <label for="answer{{ forloop.counter }}">Answer: {{ answer.answer_text }}.</label><br />
     <div>Author: {{ answer.author.username }}</div>
     <div>Up votes: {{ answer.up_votes }}</div>
     <div>Down votes: {{ answer.down_votes }}</div>
-{#    <div>Net positive votes: {% answer.up_votes -answer.down_votes %}</div>#}
+    <div>Net positive votes: {{ answer.net_votes }} </div>
 
 {% endfor %}
 <input type="submit" name="VoteUp" value="Agree" />
