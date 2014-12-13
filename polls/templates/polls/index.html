@@ -9,7 +9,8 @@
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">Question content: {{ question.question_text }}. Author: {{ question.author.username }}</a></li>
+        <li><a href="{% url 'polls:detail' question.id %}">Question: {{ question.question_text | truncatechars:500  }}. </a></li>
+        <p>Author: {{ question.author.username }}</p>
     {% endfor %}
     </ul>
 

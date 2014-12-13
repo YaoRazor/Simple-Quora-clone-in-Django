@@ -30,9 +30,6 @@ def index(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         latest_question_list = paginator.page(paginator.num_pages)
 
-
-
-
     context = {'latest_question_list': latest_question_list, 'username': request.user.username}
     return render(request, 'polls/index.html', context)
 

@@ -7,7 +7,7 @@
 <body>
      <form method=POST action="{% url 'polls:ask_question' %}" method=post>
      {% csrf_token %}
-     What is your question?: <input type=text name=question_text>
+     What is your question?: <textarea type=text name=question_text rows="20" cols="80"> </textarea>
      <input type=submit name=Submit value=Submit><input type=submit name=Cancel value=Cancel>
      </form>
 

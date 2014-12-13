@@ -12,7 +12,7 @@ from django.utils import timezone
 
 
 class Question(models.Model):
-    question_text = models.CharField(max_length=200)
+    question_text = models.CharField(max_length=1000)
     pub_date = models.DateTimeField('date published')
 
     def __unicode__(self):
