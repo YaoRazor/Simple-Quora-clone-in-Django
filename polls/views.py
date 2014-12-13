@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 import logging
 
 logger = logging.getLogger(__name__)
@@ -58,7 +59,7 @@ def vote(request, question_id):
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
 
-
+@login_required
 def goto_add_page(request):
     return render(request, 'polls/ask.html')
 

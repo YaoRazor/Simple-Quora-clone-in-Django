@@ -1,12 +1,19 @@
+{% if username %}
+<p>Hello, {{ username }} !!!.</p>
+{% else %}
+    <p>Please log in to get full features of this website.</p>
+{% endif %}
+<p> <a href="{% url 'authentication:login' %}">Log in</a> </p>
+<p> <a href="{% url 'authentication:logout' %}">Log out </a> </p>
 <div>All question list</div>
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        <li><a href="{% url 'polls:detail' question.id %}">Question content: {{ question.question_text }}. Author: {{ question.author.username }}</a></li>
     {% endfor %}
     </ul>
 
-    <p>Hello, {{ username }} !!!. Do you have questions about your life and dreams</p>
+    <p>Do you have questions about life and dreams?</p>
     <p> <a href="{% url 'polls:ask' %}">Shoot your question </a> </p>
 
 {% else %}

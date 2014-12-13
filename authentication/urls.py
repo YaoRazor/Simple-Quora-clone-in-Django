@@ -9,6 +9,6 @@ urlpatterns = patterns('',
     url(r'^register_success/$', authentication.views.register_success, name='register_success'),
     url(r'^login/$', login, name="login"),
     # url(r'^logout/$', authentication.views.logout, name="logout"),
-    url(r'^logout/$', logout, name="logout"),
+    url(r'^logout/$', authentication.views.logout, name="logout"),
     url(r'^profile/$', authentication.views.profile, name="profile"),
 )

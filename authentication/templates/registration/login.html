@@ -5,6 +5,7 @@
     <title></title>
 </head>
 <body>
+<p>If you don't log in, you can only view questions. <a href="{% url 'polls:index' %}">Click to view question list</a> </p>
 <p>No account?  <a href="{% url 'authentication:register_user' %}">Register here</a></p>
 {{ error }}
 <form method='post' action='{% url 'authentication:login' %}'>

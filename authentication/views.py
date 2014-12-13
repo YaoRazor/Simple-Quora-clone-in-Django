@@ -12,23 +12,24 @@ from django.core.context_processors import csrf
 
 
 
-def confirm(request, activation_key):
-    if request.user.is_authenticated():
-        return render_to_response('authentication/confirm.html', {'has_account': True})
-    user_profile = get_object_or_404(UserProfile,
-                                     activation_key=activation_key)
-    if user_profile.key_expires < datetime.datetime.today():
-        return render_to_response('authentication/confirm.html', {'expired': True})
-    user_account = user_profile.user
-    user_account.is_active = True
-    user_account.save()
-    return render_to_response('authentication/confirm.html', {'success': True})
+# def confirm(request, activation_key):
+#     if request.user.is_authenticated():
+#         return render_to_response('authentication/confirm.html', {'has_account': True})
+#     user_profile = get_object_or_404(UserProfile,
+#                                      activation_key=activation_key)
+#     if user_profile.key_expires < datetime.datetime.today():
+#         return render_to_response('authentication/confirm.html', {'expired': True})
+#     user_account = user_profile.user
+#     user_account.is_active = True
+#     user_account.save()
+#     return render_to_response('authentication/confirm.html', {'success': True})
 
 
 def logout(request):
     if request.user.is_authenticated:
         auth.logout(request)
-    return render_to_response('authentication/logout.html',  {})
+    return HttpResponseRedirect(reverse('polls:index'))
+    #return HttpResponse("Logged out")
 
 def profile(request):
     if request.user.is_authenticated:
