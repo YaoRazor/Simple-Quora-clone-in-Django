@@ -79,3 +79,21 @@ def add_question(request):
         return HttpResponse("Submit new question error")
 
 
+@login_required
+def goto_answer_page(request, question_id):
+    p = get_object_or_404(Question, pk=question_id)
+    context = {'question': p}
+    return render(request, 'polls/answer.html', context)
+
+
+def add_answer(request, question_id):
+    if 'Submit' in request.POST:
+        p = get_object_or_404(Question, pk=question_id)
+        new_answer_text = request.POST['answer_text']
+        new_answer = Answers(answer_text=new_answer_text, pub_date=timezone.now(), author=request.user, question=p)
+        new_answer.save()
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+    elif 'Cancel' in request.POST:
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+    else:
+        return HttpResponse("Submit new answer error")

@@ -1,5 +1,5 @@
-<h2>{{ question.question_text }}</h2>
-<h2>{{ question.author.username }}</h2>
+<h2>Question:{{ question.question_text }}</h2>
+<h3>Asked by: {{ question.author.username }} at {{ question.pub_date }}</h3>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
@@ -7,8 +7,16 @@
 {% csrf_token %}
 {% for answer in question.answers_set.all %}
     <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
-    <label for="answer{{ forloop.counter }}">{{ answer.answer_text }}</label><br />
+    <label for="answer{{ forloop.counter }}">Answer: {{ answer.answer_text }}.</label><br />
+    <div>Author: {{ answer.author.username }}</div>
+    <div>Up votes: {{ answer.up_votes }}</div>
+    <div>Down votes: {{ answer.down_votes }}</div>
+{#    <div>Net positive votes: {% answer.up_votes -answer.down_votes %}</div>#}
+
 {% endfor %}
-<input type="submit" name="VoteUp" value="Up" />
-<input type="submit" name="VoteDown" value="Down">
+<input type="submit" name="VoteUp" value="Agree" />
+<input type="submit" name="VoteDown" value="Disagree">
 </form>
+
+<p>You have better ideas? Enlighten us!</p>
+<p> <a href="{% url 'polls:answer' question.id %}">Give your answer </a> </p>
