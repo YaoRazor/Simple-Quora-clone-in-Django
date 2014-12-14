@@ -65,11 +65,16 @@ def vote(request, question_id):
         })
     else:
         if 'VoteUp' in request.POST:
-            selected_choice.up_votes += 1
+            if request.user not in selected_choice.up_list.all():
+                selected_choice.up_list.add(request.user)
+                selected_choice.up_votes += 1
+
             selected_choice.net_votes = selected_choice.up_votes-selected_choice.down_votes
             print "Up"
         elif 'VoteDown' in request.POST:
-            selected_choice.down_votes +=1
+            if request.user not in selected_choice.down_list.all():
+                selected_choice.down_list.add(request.user)
+                selected_choice.down_votes += 1
             selected_choice.net_votes = selected_choice.up_votes-selected_choice.down_votes
             print "Down"
         else:
@@ -132,6 +137,7 @@ def edit_question_page(request, question_id):
     context = {'question': p, "can_edit": can_edit}
     return render(request, 'polls/edit_question_page.html', context)
 
+
 def edit_question(request, question_id):
     if 'Submit' in request.POST:
         p = get_object_or_404(Question, pk=question_id)
@@ -155,6 +161,7 @@ def edit_answer_page(request, question_id, answer_id):
 
     context = {'answer': p, "can_edit": can_edit, 'question': q}
     return render(request, 'polls/edit_answer_page.html', context)
+
 
 def edit_answer(request, question_id, answer_id):
     if 'Submit' in request.POST:

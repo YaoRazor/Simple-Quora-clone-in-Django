@@ -36,6 +36,8 @@ class Answers(models.Model):
     up_votes = models.IntegerField(default=0)
     down_votes = models.IntegerField(default=0)
     net_votes = models.IntegerField(default=0)
+    up_list = models.ManyToManyField(User, related_name="up_list")
+    down_list = models.ManyToManyField(User, related_name="down_list")
 
     def __unicode__(self):
         return self.answer_text
