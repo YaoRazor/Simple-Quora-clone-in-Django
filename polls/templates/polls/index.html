@@ -1,18 +1,50 @@
-{% if username %}
-<p>Hello, {{ username }} !!!.</p>
-{% else %}
-    <p>Please log in to get full features of this website.</p>
-{% endif %}
-<p> <a href="{% url 'authentication:login' %}">Log in</a> </p>
-<p> <a href="{% url 'authentication:logout' %}">Log out </a> </p>
-<div>All question list</div>
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="masthead">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1>  Question list
+                </h1>
+            </div>
+        </div>
+    </div><!-- /cont -->
+
+</div>
 {% if latest_question_list %}
+
     <ul>
     {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">Question: {{ question.question_text | truncatechars:500  }}. </a></li>
-        <p>Author: {{ question.author.username }}</p>
-        <p>Creation time: {{ question.pub_date }}</p>
-        <p>Creation time: {{ question.modification_time }}</p>
+            <div class="row">
+            <br>
+{#            <div class="col-md-2 col-sm-3 text-center">#}
+{#              <a class="story-img" href="#"><img src="//placehold.it/100" style="width:100px;height:100px" class="img-circle"></a>#}
+{#            </div>#}
+            <div class="col-md-10 col-sm-9">
+              <li><h3>Question: {{ question.question_text | truncatechars:500  }}.</h3></li>
+              <div class="row">
+                <div class="col-xs-9">
+                  <p> Author: {{ question.author.username }} </p>
+                    <br>
+                      <p>Created at: {{ question.pub_date }}</p>
+                      <p>Last updated at: {{ question.modification_time }}</p>
+                  <p class="lead"><button class="btn btn-default"><a href="{% url 'polls:detail' question.id %}">Read more</a></button></p>
+                  <p class="pull-right"><span class="label label-default">keyword</span> <span class="label label-default">tag</span> <span class="label label-default">post</span></p>
+                  <ul class="list-inline">
+                  <li><a href="#">  </a> {{ question.number_of_answers }} answers now </li>
+                  <li><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>
+                  <li><a href="#"><i class="glyphicon glyphicon-share"></i></a></li>
+                  </ul>
+                  </div>
+                <div class="col-xs-3"></div>
+              </div>
+              <br><br>
+            </div>
+          </div>
+          <hr>
+
     {% endfor %}
     </ul>
 
@@ -38,3 +70,6 @@
         {% endif %}
     </span>
 </div>
+
+{% endblock %}
+

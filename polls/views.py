@@ -40,7 +40,7 @@ def index(request):
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     answers = question.answers_set.order_by('-net_votes')
-    return render(request, 'polls/detail.html', {'question': question, 'answers': answers})
+    return render(request, 'polls/detail.html', {'question': question, 'answers': answers, 'username': request.user.username})
 
 
 # class ResultsView(generic.DetailView):
@@ -146,6 +146,8 @@ def add_answer(request, question_id):
         new_answer = Answers(answer_text=new_answer_text, pub_date=timezone.now(), author=request.user, question=p,
                              modification_time=timezone.now())
         new_answer.save()
+        p.number_of_answers = len(p.answers_set.all())
+        p.save()
         return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
     elif 'Cancel' in request.POST:
         return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))

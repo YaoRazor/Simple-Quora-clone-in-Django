@@ -14,6 +14,7 @@ class Question(models.Model):
     down_list = models.ManyToManyField(User, related_name="question_down_list")
     up_votes = models.IntegerField(default=0)
     down_votes = models.IntegerField(default=0)
+    number_of_answers = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.question_text

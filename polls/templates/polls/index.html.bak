@@ -1,0 +1,40 @@
+{% if username %}
+<p>Hello, {{ username }} !!!.</p>
+{% else %}
+    <p>Please log in to get full features of this website.</p>
+{% endif %}
+<p> <a href="{% url 'authentication:login' %}">Log in</a> </p>
+<p> <a href="{% url 'authentication:logout' %}">Log out </a> </p>
+<div>All question list</div>
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">Question: {{ question.question_text | truncatechars:500  }}. </a></li>
+        <p>Author: {{ question.author.username }}</p>
+        <p>Creation time: {{ question.pub_date }}</p>
+        <p>Creation time: {{ question.modification_time }}</p>
+    {% endfor %}
+    </ul>
+
+    <p>Do you have questions about life and dreams?</p>
+    <p> <a href="{% url 'polls:ask' %}">Shoot your question </a> </p>
+
+{% else %}
+    <p>No questions are available.</p>
+{% endif %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if latest_question_list.has_previous %}
+            <a href="?page={{ latest_question_list.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ latest_question_list.number }} of {{ latest_question_list.paginator.num_pages }}.
+        </span>
+
+        {% if latest_question_list.has_next %}
+            <a href="?page={{ latest_question_list.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
