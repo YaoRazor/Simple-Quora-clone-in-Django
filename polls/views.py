@@ -53,7 +53,31 @@ def results(request, question_id):
     return render(request, 'polls/results.html', {'question': question, 'answers': answers})
 
 
+def question_vote(request, question_id):
+    p = get_object_or_404(Question, pk=question_id)
+    # Deal with question vote
+    if 'VoteUpQuestion' in request.POST:
+        if request.user not in p.up_list.all():
+            p.up_list.add(request.user)
+            p.up_votes += 1
+
+    elif 'VoteDownQuestion' in request.POST:
+        if request.user not in p.down_list.all():
+            p.down_list.add(request.user)
+            p.down_votes += 1
+
+    # update database for question
+    p.save()
+
+    # Deal with question vote
+
+
+@login_required
 def vote(request, question_id):
+    if 'VoteUpQuestion' in request.POST or 'VoteDownQuestion' in request.POST:
+        question_vote(request, question_id)
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+
     p = get_object_or_404(Question, pk=question_id)
     try:
         selected_choice = p.answers_set.get(pk=request.POST['answer'])
@@ -64,29 +88,31 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
+
+
+        # Deal with answer vote
         if 'VoteUp' in request.POST:
+            # check if duplicate vote, guarantee one user can only vote up once
             if request.user not in selected_choice.up_list.all():
                 selected_choice.up_list.add(request.user)
                 selected_choice.up_votes += 1
 
             selected_choice.net_votes = selected_choice.up_votes-selected_choice.down_votes
-            print "Up"
         elif 'VoteDown' in request.POST:
+            # check if duplicate vote, guarantee one user can only vote down once
             if request.user not in selected_choice.down_list.all():
                 selected_choice.down_list.add(request.user)
                 selected_choice.down_votes += 1
+
             selected_choice.net_votes = selected_choice.up_votes-selected_choice.down_votes
-            print "Down"
-        else:
-            return HttpResponse("Neither Up or Down")
+        # Deal with answer vote
 
-        print request.user
-
+        # update database for answers
         selected_choice.save()
         # Always return an HttpResponseRedirect after successfully dealing
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
+        return HttpResponseRedirect(reverse('polls:detail', args=(p.id,)))
 
 @login_required
 def goto_add_page(request):
