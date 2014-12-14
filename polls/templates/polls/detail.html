@@ -1,5 +1,7 @@
-<h2>Question:{{ question.question_text }}</h2>
+<a href="{% url 'polls:index' %}">home page</a>
+<a href="{% url 'polls:edit_question_page' question.id %}"><h2>Question:{{ question.question_text }}</h2></a>
 <h3>Asked by: {{ question.author.username }} at {{ question.pub_date }}</h3>
+<h3>Last update time: {{ question.modification_time }}</h3>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
@@ -7,8 +9,8 @@
 {% csrf_token %}
 {% for answer in answers %}
     <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
-    <label for="answer{{ forloop.counter }}">Answer: {{ answer.answer_text }}.</label><br />
-    <div>Author: {{ answer.author.username }}</div>
+    <label for="answer{{ forloop.counter }}">Answer: <a href="{% url 'polls:edit_answer_page' question.id answer.id %}">{{ answer.answer_text }}.</a></label><br />
+    <div>Author: {{ answer.author.username }} created at {{ answer.pub_date }}, Last updated at {{ answer.modification_time }}</div>
     <div>Up votes: {{ answer.up_votes }}</div>
     <div>Down votes: {{ answer.down_votes }}</div>
     <div>Net positive votes: {{ answer.net_votes }} </div>

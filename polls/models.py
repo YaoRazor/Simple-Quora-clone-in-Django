@@ -14,6 +14,7 @@ from django.utils import timezone
 class Question(models.Model):
     question_text = models.CharField(max_length=1000)
     pub_date = models.DateTimeField('date published')
+    modification_time = models.DateTimeField('date modified')
 
     def __unicode__(self):
         return self.question_text
@@ -31,6 +32,7 @@ class Answers(models.Model):
     question = models.ForeignKey(Question)
     answer_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
+    modification_time = models.DateTimeField('date modified')
     up_votes = models.IntegerField(default=0)
     down_votes = models.IntegerField(default=0)
     net_votes = models.IntegerField(default=0)

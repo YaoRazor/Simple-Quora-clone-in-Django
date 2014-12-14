@@ -5,11 +5,15 @@
     <title></title>
 </head>
 <body>
+<a href="{% url 'polls:index' %}">home page</a>
 <h2>Question:{{ question.question_text }}</h2>
-<h3>Asked by: {{ question.author.username }} at {{ question.pub_date }}</h3>
+<h3>Author: {{ question.author.username }} </h3>
+<h3>Creation time: {{ question.pub_date }} </h3>
+<h3>Last updated at: {{ question.modification_time }} </h3>
 <form method=POST action="{% url 'polls:answer_question' question.id %}" method=post>
     {% csrf_token %}
-    What is your answer?: <input type=text name=answer_text>
+    What is your answer?: <br>
+    <textarea type=text name=answer_text rows="20" cols="80"> </textarea> <br>
     <input type=submit name=Submit value=Submit><input type=submit name=Cancel value=Cancel>
 </form>
 

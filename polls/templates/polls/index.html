@@ -11,6 +11,8 @@
     {% for question in latest_question_list %}
         <li><a href="{% url 'polls:detail' question.id %}">Question: {{ question.question_text | truncatechars:500  }}. </a></li>
         <p>Author: {{ question.author.username }}</p>
+        <p>Creation time: {{ question.pub_date }}</p>
+        <p>Creation time: {{ question.modification_time }}</p>
     {% endfor %}
     </ul>
 

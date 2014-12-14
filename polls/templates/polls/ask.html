@@ -5,6 +5,7 @@
     <title></title>
 </head>
 <body>
+<a href="{% url 'polls:index' %}">home page</a>
      <form method=POST action="{% url 'polls:ask_question' %}" method=post>
      {% csrf_token %}
      <p>What is your question?:</p> <br>

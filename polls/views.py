@@ -90,15 +90,13 @@ def goto_add_page(request):
 
 def add_question(request):
     if 'Submit' in request.POST:
-        #print "start to create new question"
         new_question_text = request.POST['question_text']
-        new_question = Question(question_text=new_question_text, pub_date=timezone.now(), author=request.user)
+        new_question = Question(question_text=new_question_text, pub_date=timezone.now(), author=request.user,
+                                modification_time=timezone.now())
         new_question.save()
-        #print "finish to print new question"
         return HttpResponseRedirect(reverse('polls:index'))
     elif 'Cancel' in request.POST:
         return HttpResponseRedirect(reverse('polls:ask'))
-        #print "Cancel"
     else:
         return HttpResponse("Submit new question error")
 
@@ -114,8 +112,56 @@ def add_answer(request, question_id):
     if 'Submit' in request.POST:
         p = get_object_or_404(Question, pk=question_id)
         new_answer_text = request.POST['answer_text']
-        new_answer = Answers(answer_text=new_answer_text, pub_date=timezone.now(), author=request.user, question=p)
+        new_answer = Answers(answer_text=new_answer_text, pub_date=timezone.now(), author=request.user, question=p,
+                             modification_time=timezone.now())
         new_answer.save()
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+    elif 'Cancel' in request.POST:
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+    else:
+        return HttpResponse("Submit new answer error")
+
+@login_required
+def edit_question_page(request, question_id):
+    p = get_object_or_404(Question, pk=question_id)
+
+    can_edit = False
+    if request.user == p.author:
+        can_edit = True
+
+    context = {'question': p, "can_edit": can_edit}
+    return render(request, 'polls/edit_question_page.html', context)
+
+def edit_question(request, question_id):
+    if 'Submit' in request.POST:
+        p = get_object_or_404(Question, pk=question_id)
+        p.question_text = request.POST['question_text']
+        p.modification_time = timezone.now()
+        p.save()
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+    elif 'Cancel' in request.POST:
+        return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
+    else:
+        return HttpResponse("Submit new answer error")
+
+@login_required
+def edit_answer_page(request, question_id, answer_id):
+    p = get_object_or_404(Answers, pk=answer_id)
+    q = get_object_or_404(Question, pk=question_id)
+
+    can_edit = False
+    if request.user == p.author:
+        can_edit = True
+
+    context = {'answer': p, "can_edit": can_edit, 'question': q}
+    return render(request, 'polls/edit_answer_page.html', context)
+
+def edit_answer(request, question_id, answer_id):
+    if 'Submit' in request.POST:
+        p = get_object_or_404(Answers, pk=answer_id)
+        p.answer_text = request.POST['answer_text']
+        p.modification_time = timezone.now()
+        p.save()
         return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
     elif 'Cancel' in request.POST:
         return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
