@@ -40,7 +40,8 @@ def index(request):
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     answers = question.answers_set.order_by('-net_votes')
-    return render(request, 'polls/detail.html', {'question': question, 'answers': answers, 'username': request.user.username})
+    return render(request, 'polls/detail.html', {'question': question, 'answers': answers,
+                                                 'username': request.user.username})
 
 
 # class ResultsView(generic.DetailView):
@@ -116,7 +117,8 @@ def vote(request, question_id):
 
 @login_required
 def goto_add_page(request):
-    return render(request, 'polls/ask.html')
+    context = {'username': request.user.username}
+    return render(request, 'polls/ask.html', context)
 
 
 def add_question(request):
@@ -135,7 +137,7 @@ def add_question(request):
 @login_required
 def goto_answer_page(request, question_id):
     p = get_object_or_404(Question, pk=question_id)
-    context = {'question': p}
+    context = {'question': p, 'username': request.user.username}
     return render(request, 'polls/answer.html', context)
 
 

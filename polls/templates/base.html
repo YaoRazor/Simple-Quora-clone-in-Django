@@ -31,7 +31,10 @@
     <nav class="collapse navbar-collapse" role="navigation">
       <ul class="nav navbar-nav">
         <li>
-          <a href="{% url 'polls:index' %}">home page</a>
+          <a href="{% url 'polls:ask' %}">Ask questions </a>
+        </li>
+        <li>
+          <a href="{% url 'polls:index' %}">home</a>
         </li>
         <li>
           <a href="{% url 'authentication:login' %}">Log in</a>
@@ -42,6 +45,9 @@
         </li>
         <li>
           <a href="{% url 'authentication:register_user' %}">Register </a> 
+        </li>
+        <li>
+          <a href="/admin/">Admin</a>
         </li>
       </ul>
       <ul class="nav navbar-right navbar-nav">

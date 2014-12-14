@@ -9,13 +9,24 @@
 
   {% endfor %}
   
-  <form action="/accounts/register/" method="post">{% csrf_token %}
-  {{form}}
-  
-  
-  
+{#  <form action="/accounts/register/" method="post">{% csrf_token %}#}
+{#  {{form.as_p}}#}
+{##}
+{##}
+{#  <input type="submit" value="Register" />#}
+{##}
+{#   </form>#}
+
+     <form action="/accounts/register/" method="post">{% csrf_token %}
+  <p><label for="id_username" >Username:</label> <input id="id_username" maxlength="30" name="username" type="text" /> <span class="helptext">Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.</span></p>
+<p><label for="id_email">Email Add:   </label> <input id="id_email" name="email" type="email" /></p>
+<p><label for="id_password1">Password:</label> <input id="id_password1" name="password1" type="password" /></p>
+<p><label for="id_password2">Confirm :&nbsp&nbsp</label> <input id="id_password2" name="password2" type="password" /></p>
+
+
+
   <input type="submit" value="Register" />
-    
+
   </form>
   
 {% endblock %}

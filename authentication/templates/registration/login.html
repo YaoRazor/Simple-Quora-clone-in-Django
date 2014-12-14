@@ -1,10 +1,6 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block content %}
 <p>If you don't log in, you can only view questions. <a href="{% url 'polls:index' %}">Click to view question list</a> </p>
 <p>No account?  <a href="{% url 'authentication:register_user' %}">Register here</a></p>
 {{ error }}
@@ -14,19 +10,5 @@
     <input type='submit'>
 </form>
 
-{# {% if form.errors %}#}
-{#    <p class="error">Sorry, that's not a valid username or password</p>#}
-{#  {% endif %}#}
-{##}
-{#  <form action="/accounts/confirm/" method="post">{% csrf_token %}#}
-{#    <label for="username">User name:</label>#}
-{#    <input type="text" name="username" value="" id="username">#}
-{#    <label for="password">Password:</label>#}
-{#    <input type="password" name="password" value="" id="password">#}
-{##}
-{#    <input type="submit" value="login" />#}
-{##}
-{#  </form>#}
+{% endblock %}
 
-</body>
-</html>
