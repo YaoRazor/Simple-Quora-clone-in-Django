@@ -151,8 +151,8 @@ def add_question(request):
             if Tags.objects.filter(tag=new_tag):
                 new_question.tags.add(Tags.objects.get(tag=new_tag))
             else:
-                print "not exists"
-                print Tags.objects.get(tag=new_tag)
+                #print "not exists"
+                #print Tags.objects.get(tag=new_tag)
                 # print Tags.objects.get(tag=new_tag)
                 # new_tag_object = Tags.objects.get(tag=new_tag)
                 # print "get successfully"
