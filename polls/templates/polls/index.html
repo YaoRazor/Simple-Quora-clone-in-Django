@@ -6,8 +6,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-7">
-                <h1>  Question list
+                {% if tag %}
+                    <h1> Questions related to <span style="color:red">{{ tag }}</span>
+                    </h1>
+                {% else %}
+                <h1> All Question list
                 </h1>
+                {% endif %}
             </div>
         </div>
     </div><!-- /cont -->
