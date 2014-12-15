@@ -20,4 +20,5 @@ urlpatterns = patterns('',
     url(r'^(?P<question_id>\d+)/edit_question/$', views.edit_question, name='edit_question'),
     url(r'^(?P<question_id>\d+)/(?P<answer_id>\d+)/edit_answer_page/$', views.edit_answer_page, name='edit_answer_page'),
     url(r'^(?P<question_id>\d+)/(?P<answer_id>\d+)/edit_answer/$', views.edit_answer, name='edit_answer'),
+    url(r'^(?P<tag_id>\d+)/question_group_by_tag/$', views.tag_handler, name='tag_handler'),
 )

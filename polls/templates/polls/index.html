@@ -24,14 +24,24 @@
 {#            </div>#}
             <div class="col-md-10 col-sm-9">
               <li><h3>Question: {{ question.question_text | truncatechars:500  }}.</h3></li>
+                <p class="pull-left">
+
+                    {% if question.tags.all %}
+                        {% for tag in question.tags.all %}
+                            <span class="label label-success"><a href="{% url 'polls:tag_handler' tag.id %}">{{ tag }}</a></span>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+            <br>
+            <br>
               <div class="row">
                 <div class="col-xs-9">
                   <p> Author: {{ question.author.username }} </p>
-                    <br>
                       <p>Created at: {{ question.pub_date }}</p>
                       <p>Last updated at: {{ question.modification_time }}</p>
                   <p class="lead"><button class="btn btn-default"><a href="{% url 'polls:detail' question.id %}">Read more</a></button></p>
-                  <p class="pull-right"><span class="label label-default">keyword</span> <span class="label label-default">tag</span> <span class="label label-default">post</span></p>
+
+
                   <ul class="list-inline">
                   <li><a href="#">  </a> {{ question.number_of_answers }} answers now </li>
                   <li><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>

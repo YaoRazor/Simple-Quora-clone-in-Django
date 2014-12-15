@@ -5,6 +5,14 @@ import datetime
 from django.utils import timezone
 
 
+class Tags(models.Model):
+    # tag should not be two long, which benefit both users and databases
+    tag = models.CharField(max_length=100, unique=True)
+
+    def __unicode__(self):
+        return self.tag
+
+
 class Question(models.Model):
     question_text = models.CharField(max_length=1000)
     pub_date = models.DateTimeField('date published')
@@ -15,6 +23,7 @@ class Question(models.Model):
     up_votes = models.IntegerField(default=0)
     down_votes = models.IntegerField(default=0)
     number_of_answers = models.IntegerField(default=0)
+    tags = models.ManyToManyField(Tags, null=True)
 
     def __unicode__(self):
         return self.question_text
@@ -42,3 +51,6 @@ class Answers(models.Model):
         return self.answer_text
 
     author = models.ForeignKey(User, null=True)
+
+
+

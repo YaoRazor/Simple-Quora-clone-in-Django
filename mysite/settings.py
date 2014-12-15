@@ -65,7 +65,7 @@ import dj_database_url
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'django_deploy',
+       'NAME': 'django_deploy1',
        'USER': 'django_login',
        'PASSWORD': 'ahxhc2804',
        'HOST': '127.0.0.1',

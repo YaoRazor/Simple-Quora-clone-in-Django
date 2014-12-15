@@ -1,5 +1,6 @@
 from django.contrib import admin
-from polls.models import Question, Answers
+
+from polls.models import Question, Answers, Tags
 
 # Register your models here.
 
@@ -34,4 +35,4 @@ class QuestionAdmin(admin.ModelAdmin):
 # specify which model will be displayed on the admin page
 admin.site.register(Question, QuestionAdmin)
 
-#admin.site.register(Choice)
+admin.site.register(Tags)

@@ -3,13 +3,25 @@
 
 {% block content %}
 <a href="{% url 'polls:edit_question_page' question.id %}"><h2>Question:{{ question.question_text }}</h2></a>
+    <p class="pull-left">
+
+        {% for tag in question.tags.all %}
+            <span class="label label-success"><a href="{% url 'polls:tag_handler' tag.id %}">{{ tag }}</a></span>
+        {% endfor %}
+        {#                   <span class="label label-default">tag</span> <span class="label label-default">post</span></p>#}
+    </p>
+    <br>
+    <br>
 <p>Author: {{ question.author.username }} at {{ question.pub_date }}</p>
 <p>Created at: {{ question.pub_date }}</p>
 <p>Last update at: {{ question.modification_time }}</p>
 <div>Up votes: {{ question.up_votes }}</div>
 <div>Down votes: {{ question.down_votes }}</div>
 
-<br>
+{#{% for tag in taglist %}#}
+{#    <p>{{ tag }}</p>#}
+{#{% endfor %}#}
+{#<br>#}
 <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
 <input type="submit" name="VoteUpQuestion" value="Good question" />

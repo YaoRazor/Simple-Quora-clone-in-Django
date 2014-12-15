@@ -1,26 +1,25 @@
 from django.shortcuts import render, get_object_or_404
-from polls.models import Question, Answers
+from polls.models import Question, Answers, Tags
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.views import generic
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
+
 
 logger = logging.getLogger(__name__)
 
 
 # Create your views here.
 
-
-def index(request):
-    # latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    question_list = Question.objects.order_by('-pub_date')
+def tag_handler(request, tag_id):
+    tag = get_object_or_404(Tags, pk=tag_id)
+    question_list = sorted(tag.question_set.all(), key=lambda x: x.pub_date,
+                           reverse=True)
     paginator = Paginator(question_list, 10)
-
-
     page = request.GET.get('page')
+
     try:
         latest_question_list = paginator.page(page)
     except PageNotAnInteger:
@@ -33,15 +32,31 @@ def index(request):
     context = {'latest_question_list': latest_question_list, 'username': request.user.username}
     return render(request, 'polls/index.html', context)
 
-# class DetailView(generic.DetailView):
-#     model = Question
-#     template_name = 'polls/detail.html'
+
+
+def index(request):
+    # latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    question_list = Question.objects.order_by('-pub_date')
+    paginator = Paginator(question_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        latest_question_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        latest_question_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        latest_question_list = paginator.page(paginator.num_pages)
+
+    context = {'latest_question_list': latest_question_list, 'username': request.user.username}
+    return render(request, 'polls/index.html', context)
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     answers = question.answers_set.order_by('-net_votes')
     return render(request, 'polls/detail.html', {'question': question, 'answers': answers,
-                                                 'username': request.user.username})
+    'username': request.user.username, 'taglist':question.tags.all}, )
 
 
 # class ResultsView(generic.DetailView):
@@ -126,7 +141,30 @@ def add_question(request):
         new_question_text = request.POST['question_text']
         new_question = Question(question_text=new_question_text, pub_date=timezone.now(), author=request.user,
                                 modification_time=timezone.now())
+        tag_string = request.POST['tags']
+        tags = tag_string.split(',')
+
         new_question.save()
+        for new_tag in tags:
+            new_tag_object = Tags(tag=new_tag)
+            #new_tag_object.save()
+            if Tags.objects.filter(tag=new_tag):
+                new_question.tags.add(Tags.objects.get(tag=new_tag))
+            else:
+                print "not exists"
+                print Tags.objects.get(tag=new_tag)
+                # print Tags.objects.get(tag=new_tag)
+                # new_tag_object = Tags.objects.get(tag=new_tag)
+                # print "get successfully"
+                # new_question.tags.add(new_tag_object)
+                # print "add successfully"
+                new_tag_object.save()
+                new_question.tags.add(new_tag_object)
+
+        print "out of for"
+        new_question.save()
+
+        #print new_question.tags.all()
         return HttpResponseRedirect(reverse('polls:index'))
     elif 'Cancel' in request.POST:
         return HttpResponseRedirect(reverse('polls:ask'))
