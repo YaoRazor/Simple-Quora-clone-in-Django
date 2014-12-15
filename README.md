@@ -6,10 +6,15 @@
 This is a clone of Quora using Django framwork. <br/>
 Currently in beta
 
+
 ## Versions
 
 ### [0.6] (http://shielded-escarpment-9491.herokuapp.com/polls/)
 - Requriment 1, 2, 3, 4, 8, 9 completed
+
+### [0.7] (http://shielded-escarpment-9491.herokuapp.com/polls/)
+- Requriment 5 completed
+- You can add tags to your questions and click on a specific tag will give you all the questions that have the tag sorted by the   question publication time
 
 
 ## Instruction
@@ -22,16 +27,12 @@ I have one for you. username: test. password: test
 As always, you can register you own username
 
 #### Home page (http://shielded-escarpment-9491.herokuapp.com/polls/)
-test account 1:
-username: test
-password: test
-
-test account 2:
-username: Yao
-password: ahxhc2804
+Feel free to register an account and play
 
 #### Admin page (http://shielded-escarpment-9491.herokuapp.com/admin/)
-
+account:
+username:admin
+password:admin
 
 ## Thanks
 - Professor Jeffery Korn
