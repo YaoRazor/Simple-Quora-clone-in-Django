@@ -44,7 +44,8 @@ def register_user(request):
         print form
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('authentication:login'))
+            print "here"
+            return HttpResponseRedirect(reverse('authentication:register_success'))
         
     else:
         form = MyRegistrationForm()

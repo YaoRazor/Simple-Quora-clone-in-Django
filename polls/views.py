@@ -139,9 +139,10 @@ def goto_add_page(request):
 
 def add_question(request):
     if 'Submit' in request.POST:
+        new_question_title = request.POST['question_title']
         new_question_text = request.POST['question_text']
         new_question = Question(question_text=new_question_text, pub_date=timezone.now(), author=request.user,
-                                modification_time=timezone.now())
+                                modification_time=timezone.now(), question_title=new_question_title)
         tag_string = request.POST['tags']
         tags = tag_string.split(',')
 
@@ -255,20 +256,21 @@ def rss(request, question_id):
     #     content=question.question_text,
     # )
     feed = feedgenerator.Rss201rev2Feed(
-        title=u"Runnable",
-        link=u"http://runnable.com",
-        description=u"A website having a lot of examples of lots of different technologies.",
+        title="Output question rss",
+        link="",
+        description=u"This is the content of all staff related to one question.",
         language=u"en",
     )
+
     feed.add_item(
         title=question.question_title,
-        link=u"www.facebook.com",
+        link=u"",
         description=question.question_text)
 
     for answer in answers:
         feed.add_item(
             title=u"answer",
-            link=u"www.facebook.com",
+            link="",
             description=answer.answer_text,)
             #up_votes=str(answer.up_votes),
 

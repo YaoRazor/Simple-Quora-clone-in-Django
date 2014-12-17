@@ -1,26 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<a href="{% url 'polls:index' %}">home page</a>
+
+{% extends "base.html" %}
+
+{% block content %}
 {% if can_edit %}
-<p> Question is: {{ question.question_text }}</p>
-<p>You can edit your answer here</p>
+<h3> Question is: {{ question.question_text }}</h3>
 <form method=POST action="{% url 'polls:edit_answer' question.id answer.id %}" method=post>
     {% csrf_token %}
-    <p>Change your mind? Update your answer here:</p> <br>
-    <textarea type=text name=answer_text rows="20" cols="80"> {{ answer.answer_text }} </textarea> <br>
-    <input type=submit name=Submit value=Submit><input type=submit name=Cancel value=Cancel>
+    <h3 style="color: red;">Change your mind to this question? Update your answer here:</h3> <br>
+    <textarea class = "form-control" type=text name=answer_text rows="20" cols="80"> {{ answer.answer_text }} </textarea> <br>
+    <input class="btn btn-primary" type=submit name=Submit value=Submit>
+    <input class="btn btn-primary" type=submit name=Cancel value=Cancel>
+    <p>Answer is created at:{{ answer.pub_date }}</p>
+    <p>Last updated at:{{ answer.modification_time }}</p>
 </form>
 {% else %}
     <p> <font color="red">This answer is created by {{ answer.author }}, you can only view it</font> </p>
     <p>Answer is:</p>
     <p>{{ answer.answer_text }}</p>
 {% endif %}
-<p>Created time:{{ answer.pub_date }}</p>
-<p>Last updated time:{{ answer.modification_time }}</p>
-</body>
-</html>
+{% endblock %}

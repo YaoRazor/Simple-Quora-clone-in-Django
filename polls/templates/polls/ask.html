@@ -3,13 +3,16 @@
 {% block content %}
      <form method=POST action="{% url 'polls:ask_question' %}" method=post>
      {% csrf_token %}
-     <h2>What is your question?:</h2> <br>
-     <textarea type=text name=question_text rows="10" cols="80"> </textarea> <br>
+     <h2>Brief introduction of your question:</h2> <br>
+     <input class="form-control" type="text" name="question_title" size="50">
+     <h2>Details of your question?:</h2> <br>
+     <textarea class="form-control" type=text name=question_text rows="10" cols="5"> </textarea> <br>
      <h3> Please specify the tags for your question</h3>
-     <input type="text" name="tags" placeholder="Please put your tags here and seperated by comma" size="50">
+     <input class="form-control" type="text" name="tags" placeholder="Please put your tags here and seperated by comma" size="50">
          <br>
          <br>
-     <input type=submit name=Submit value=Submit><input type=submit name=Cancel value=Cancel>
+     <input class="btn btn-primary" type=submit name=Submit value=Submit>
+     <input class="btn btn-primary" type=submit name=Cancel value=Cancel>
      </form>
 {% endblock %}
 

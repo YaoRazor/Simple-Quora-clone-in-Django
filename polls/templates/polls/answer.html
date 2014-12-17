@@ -1,15 +1,17 @@
 {% extends "base.html" %}
+{% load smarturlize %}
 
 {% block content %}
-<h2>Question:{{ question.question_text }}</h2>
-<h3>Author: {{ question.author.username }} </h3>
-<h3>Creation time: {{ question.pub_date }} </h3>
-<h3>Last updated at: {{ question.modification_time }} </h3>
+<h2>Question:{{ question.question_text | smarturlize }}</h2>
+<h4>Author: {{ question.author.username }} </h4>
+<h4>Question Creation time: {{ question.pub_date }} </h4>
+<h4>Question Last updated at: {{ question.modification_time }} </h4>
 <form method=POST action="{% url 'polls:answer_question' question.id %}" method=post>
     {% csrf_token %}
     What is your answer?: <br>
-    <textarea type=text name=answer_text rows="20" cols="80"> </textarea> <br>
-    <input type=submit name=Submit value=Submit><input type=submit name=Cancel value=Cancel>
+    <textarea class="form-control"type=text name=answer_text rows="20" cols="80"> </textarea> <br>
+    <input class="btn btn-primary" type=submit name=Submit value=Submit>
+    <input class="btn btn-primary" type=submit name=Cancel value=Cancel>
 </form>
 {% endblock %}
 

@@ -3,7 +3,13 @@
 {% load smarturlize %}
 
 {% block content %}
-<a href="{% url 'polls:edit_question_page' question.id %}"><h2>Question:{{ question.question_text | smarturlize }}</h2></a>
+    <h3>Question title: {{ question.question_title | smarturlize }}</h3>
+
+<h2>Question content:<br>{{ question.question_text | smarturlize }}</h2>
+    <h5>
+        <a href="{% url 'polls:edit_question_page' question.id %}"> view/modify question</a>
+    </h5>
+
     <p class="pull-left">
 
         {% for tag in question.tags.all %}
@@ -13,55 +19,59 @@
     </p>
     <br>
     <br>
-    <p class="pull-left">
-        <a href="{% url 'polls:rss' question.id %}"> feed</a>
-    </p>
-{#    <div class="pull-left">#}
-{#       <a class="pull-left" href="{% url 'polls:rss' question.id %}"><p>feed</p> </a>#}
-{#    </div>#}
-    <br>
-    <br>
-<div>{{ question.question_text | smarturlize}}.</div>
 <p>Author: {{ question.author.username }} at {{ question.pub_date }}</p>
 <p>Created at: {{ question.pub_date }}</p>
 <p>Last update at: {{ question.modification_time }}</p>
 <div>Up votes: {{ question.up_votes }}</div>
 <div>Down votes: {{ question.down_votes }}</div>
+    <p class="pull-left">
+        <a href="{% url 'polls:rss' question.id %}">RSS</a>
+    </p>
+    <br>
+    <br>
 
-{#{% for tag in taglist %}#}
-{#    <p>{{ tag }}</p>#}
-{#{% endfor %}#}
-{#<br>#}
 <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
-<input type="submit" name="VoteUpQuestion" value="Good question" />
-<input type="submit" name="VoteDownQuestion" value="Boring question">
+<input type="submit" class ="btn btn-primary" name="VoteUpQuestion" value="Good question" />
+<input type="submit" class ="btn btn-primary" name="VoteDownQuestion" value="Boring question">
 </form>
 
+   {% if answers %}
 <h3> Select an answer first, then click agree or disagree </h3>
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
 {% for answer in answers %}
-    <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
-    <label for="answer{{ forloop.counter }}">Answer: <a href="{% url 'polls:edit_answer_page' question.id answer.id %}">{{ answer.answer_text }}.</a></label><br />
+    <h2>Answer{{ forloop.counter }}:<br>{{ answer.answer_text | smarturlize}}</h2>
+    <h5>
+        <a href="{% url 'polls:edit_answer_page' question.id answer.id%}"> view/modify answer</a>
+    </h5>
     <div>Author: {{ answer.author.username }} </div>
     <div>Created at: {{ answer.pub_date }} </div>
     <div>Last updated at: {{ answer.modification_time }}</div>
     <div>Up votes: {{ answer.up_votes }}</div>
     <div>Down votes: {{ answer.down_votes }}</div>
     <div>Net positive votes: {{ answer.net_votes }} </div>
-    <div>{{ answer.answer_text | smarturlize}}.</div>
+    <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
+    <label for="answer{{ forloop.counter }}"><a href="{% url 'polls:edit_answer_page' question.id answer.id %}"
+            >Select Answer {{ forloop.counter }}: click radio button to select, click me to view or modify</a> </label><br />
 
 
 {% endfor %}
-    <input type="submit" name="VoteUp" value="Agree" />
-    <input type="submit" name="VoteDown" value="Disagree"> <br>
-</form>
-<br>
 
+<br>
+    <input type="submit" class="btn btn-success" name="VoteUp" value="Agree" />
+    <input type="submit" class="btn btn-success" name="VoteDown" value="Disagree"> <br>
+</form>
 <br>
 <h2>You have better ideas? We need your wisdom!</h2>
 <h3> <a href="{% url 'polls:answer' question.id %}">Give your answer </a> </h3>
+       {% else %}
+
+<h2>Oops! No answers yet, be the first one to answer the question!</h2>
+<h3> <a href="{% url 'polls:answer' question.id %}">Give your answer </a> </h3>
+{% endif %}
+<br>
+
 {% endblock %}
