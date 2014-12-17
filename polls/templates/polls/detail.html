@@ -1,8 +1,9 @@
 
 {% extends "base.html" %}
+{% load smarturlize %}
 
 {% block content %}
-<a href="{% url 'polls:edit_question_page' question.id %}"><h2>Question:{{ question.question_text }}</h2></a>
+<a href="{% url 'polls:edit_question_page' question.id %}"><h2>Question:{{ question.question_text | smarturlize }}</h2></a>
     <p class="pull-left">
 
         {% for tag in question.tags.all %}
@@ -42,6 +43,8 @@
     <div>Up votes: {{ answer.up_votes }}</div>
     <div>Down votes: {{ answer.down_votes }}</div>
     <div>Net positive votes: {{ answer.net_votes }} </div>
+    <div style="height: 100px">{{ answer.answer_text | smarturlize}}.</div>
+
 
 {% endfor %}
     <input type="submit" name="VoteUp" value="Agree" />
