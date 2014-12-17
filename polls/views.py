@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from polls.models import Question, Answers, Tags
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.utils import timezone
+from django.utils import timezone, feedgenerator
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import logging
@@ -243,3 +243,49 @@ def edit_answer(request, question_id, answer_id):
         return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))
     else:
         return HttpResponse("Submit new answer error")
+
+
+def rss(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    answers = question.answers_set.order_by('-net_votes')
+    # create a feed generator having a channel with following title, link and description
+    # feed = feedgenerator.Rss201rev2Feed(
+    #     title=question.question_title,
+    #     content=question.question_text,
+    # )
+    feed = feedgenerator.Rss201rev2Feed(
+        title=u"Runnable",
+        link=u"http://runnable.com",
+        description=u"A website having a lot of examples of lots of different technologies.",
+        language=u"en",
+    )
+    feed.add_item(
+        title=question.question_title,
+        link= "www.facebook.com",
+        description=question.question_text)
+
+    # for answer in answers:
+    #     feed.add_item(
+    #         answer_text=answer.answer_text,
+    #         #up_votes=str(answer.up_votes),
+    #         #down_votes=str(answer.down_votes)
+    #     )
+
+    # Write all the feeds in a string
+    str=feed.writeString('utf-8')
+    # You can use following to write the same in a file
+    #with open('test.rss', 'w') as fp:
+    #	feed.write(fp, 'utf-8')
+
+    # format the string so that it will be readable
+    context = {}
+    str = format(str)
+    context['str'] = str
+
+    return render(request, 'polls/rss.html', context)
+
+def format(str):
+    str=str.replace('>', '>\n')
+    str=str.replace('<', '\n<')
+    str=str.replace('\n\n', '\n')
+    return str

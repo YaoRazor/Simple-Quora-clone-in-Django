@@ -14,6 +14,7 @@ class Tags(models.Model):
 
 
 class Question(models.Model):
+    question_title = models.CharField(max_length=100, default="question")
     question_text = models.CharField(max_length=1000)
     pub_date = models.DateTimeField('date published')
     modification_time = models.DateTimeField('date modified')

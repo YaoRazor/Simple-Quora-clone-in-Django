@@ -4,6 +4,7 @@
 
 {% block content %}
 <a href="{% url 'polls:edit_question_page' question.id %}"><h2>Question:{{ question.question_text | smarturlize }}</h2></a>
+<a href="{% url 'polls:rss' question.id %}">feed</a>
     <p class="pull-left">
 
         {% for tag in question.tags.all %}
