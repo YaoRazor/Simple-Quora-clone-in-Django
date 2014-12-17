@@ -55,7 +55,7 @@
     <div>Net positive votes: {{ answer.net_votes }} </div>
     <input type="radio" name="answer" id="answer{{ forloop.counter }}" value="{{ answer.id }}" />
     <label for="answer{{ forloop.counter }}"><a href="{% url 'polls:edit_answer_page' question.id answer.id %}"
-            >Select Answer {{ forloop.counter }}: click radio button to select, click me to view or modify</a> </label><br />
+            >Select Answer {{ forloop.counter }}</a> </label><br />
 
 
 {% endfor %}

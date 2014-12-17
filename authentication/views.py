@@ -28,8 +28,12 @@ from django.core.context_processors import csrf
 def logout(request):
     if request.user.is_authenticated:
         auth.logout(request)
-    return HttpResponseRedirect(reverse('polls:index'))
-    #return HttpResponse("Logged out")
+    return HttpResponseRedirect(reverse('authentication:logout_success'))
+
+
+def logout_success(request):
+    return render_to_response('authentication/logout_success.html')
+
 
 def profile(request):
     if request.user.is_authenticated:
