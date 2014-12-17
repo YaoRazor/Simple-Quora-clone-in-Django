@@ -18,7 +18,7 @@ Currently in beta
 - 
 
 ### [1.0]
-- All requirements are completed
+- All requirements are completed with some additional function implemented for fun
 - 
 
 ## Design
@@ -27,8 +27,18 @@ Currently in beta
 This project is designed using Django and deployed to Heroku cloud platform using PostGreSQL as the database to store data. 
 Under the top-level folder of the project, there are three apps. Polls app is the core function of this project, Authentication app is used to handle the user registration and login. Smarturlize app is used to detect the hyperlink in text. Django-photologue app is integrated to provide the photos and gallerys function. 
 
+Project basically is developed purely in Django, using interface proviede by Heroku to deply
+
 ### Polls App
-This app is developed using Django's MVC pattern. Templates folder store the view of the page, urls.py is servelet dispacher, views is the controller. 
+This app is developed using Django's MVC pattern. Templates folder store the view of the page, urls.py is servelet dispacher, views.py is the controller, models.py stores the data model. All templates inherit base template to provide consistent ui. Static fiels are stored in public/static folder. Media files are stored in public/media folder.
+
+
+### Functions
+Basically, all the 10 requirements are implemented. The usage of these functions are pretty straightforward. If you have problem testing the function, please inform me!
+Additional function
+1. In the question list page, I displayed the number of answers of this question.
+2. In the Image upload module, you can track your activity
+3. When you click a tag, all the related questions will be displayed in order of creation time
 
 
 ## Instruction
@@ -48,5 +58,3 @@ Feel free to register an account and play
 - Professor Jeffery Korn
 - Grader LiangFang and Shancong Fu
 
-## Aditional comments
-- DS要考试啦，赶紧做完呀。
