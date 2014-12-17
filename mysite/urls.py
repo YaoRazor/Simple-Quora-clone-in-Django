@@ -14,7 +14,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('authentication.urls', namespace='authentication')),
     url(r'^photologue/', include('photologue.urls', namespace='photologue')),
-    url(r'^photologue/photo/add/$', CreateView.as_view(model=Photo, template_name='test_photo.html'),
-        name='add-photo'),
 )+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

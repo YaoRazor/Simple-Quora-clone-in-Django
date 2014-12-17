@@ -211,6 +211,7 @@ def edit_question(request, question_id):
     if 'Submit' in request.POST:
         p = get_object_or_404(Question, pk=question_id)
         p.question_text = request.POST['question_text']
+        p.question_title = request.POST['question_title']
         p.modification_time = timezone.now()
         p.save()
         return HttpResponseRedirect(reverse('polls:detail', args=(question_id,)))

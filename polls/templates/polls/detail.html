@@ -4,7 +4,6 @@
 
 {% block content %}
 <a href="{% url 'polls:edit_question_page' question.id %}"><h2>Question:{{ question.question_text | smarturlize }}</h2></a>
-<a href="{% url 'polls:rss' question.id %}">feed</a>
     <p class="pull-left">
 
         {% for tag in question.tags.all %}
@@ -12,6 +11,14 @@
         {% endfor %}
         {#                   <span class="label label-default">tag</span> <span class="label label-default">post</span></p>#}
     </p>
+    <br>
+    <br>
+    <p class="pull-left">
+        <a href="{% url 'polls:rss' question.id %}"> feed</a>
+    </p>
+{#    <div class="pull-left">#}
+{#       <a class="pull-left" href="{% url 'polls:rss' question.id %}"><p>feed</p> </a>#}
+{#    </div>#}
     <br>
     <br>
 <div>{{ question.question_text | smarturlize}}.</div>

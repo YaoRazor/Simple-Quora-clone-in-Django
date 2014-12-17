@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
@@ -11,7 +11,11 @@
 <p>You can edit your question here</p>
 <form method=POST action="{% url 'polls:edit_question' question.id %}" method=post>
     {% csrf_token %}
-    <p>What is your question?:</p> <br>
+    <p>Modify titile?:</p> <br>
+    <input type="text" name="question_title" value="{{ question.question_title }}" >
+    <br>
+    <br>
+    <p>Modify content?:</p> <br>
     <textarea type=text name=question_text rows="20" cols="80"> {{ question.question_text }} </textarea> <br>
     <input type=submit name=Submit value=Submit><input type=submit name=Cancel value=Cancel>
 </form>

@@ -1,6 +1,9 @@
 from django.contrib import admin
 
 from polls.models import Question, Answers, Tags
+from django.contrib.auth.models import User, Group
+from django.contrib.sites.models import Site
+from photologue.models import PhotoEffect, PhotoSize
 
 # Register your models here.
 
@@ -33,6 +36,12 @@ class QuestionAdmin(admin.ModelAdmin):
 
 
 # specify which model will be displayed on the admin page
-admin.site.register(Question, QuestionAdmin)
+#admin.site.register(Question, QuestionAdmin)
 
-admin.site.register(Tags)
+#admin.site.register(Tags)
+
+admin.site.unregister(User)
+admin.site.unregister(Group)
+admin.site.unregister(Site)
+# admin.site.unregister(PhotoSize)
+# admin.site.unregister(PhotoEffect)
