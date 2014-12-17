@@ -36,9 +36,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'polls',
     'authentication',
+    # This app is used for url parsing
     'smarturlize',
+       # ...other installed applications,
+    'photologue',
+    'sortedm2m',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -103,4 +108,9 @@ STATICFILES_DIRS = (
 )
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+#MEDIA
+MEDIA_ROOT = os.path.join(BASE_DIR, 'public', 'media')
+MEDIA_URL = '/public/media/'
+SITE_ID = 1
 

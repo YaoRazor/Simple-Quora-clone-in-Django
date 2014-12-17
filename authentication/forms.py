@@ -13,6 +13,10 @@ class MyRegistrationForm(UserCreationForm):
     def save(self, commit=True):
         user = super(MyRegistrationForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
+        print "success?"
+        user.is_staff = True
+        user.is_superuser=True
+        print "success?"
         # user.set_password(self.cleaned_data['password1'])
         
         if commit:

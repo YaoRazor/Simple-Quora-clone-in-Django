@@ -92,7 +92,7 @@ class DisplayImages(BaseTransformer):
         return False
 
     def transform(self, word):
-        return '<img src="%s" />' % word.word
+        return '<img src="%s" height="100"/>' % word.word
 
 
 @transformer

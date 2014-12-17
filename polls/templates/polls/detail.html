@@ -13,6 +13,7 @@
     </p>
     <br>
     <br>
+<div>{{ question.question_text | smarturlize}}.</div>
 <p>Author: {{ question.author.username }} at {{ question.pub_date }}</p>
 <p>Created at: {{ question.pub_date }}</p>
 <p>Last update at: {{ question.modification_time }}</p>
@@ -43,7 +44,7 @@
     <div>Up votes: {{ answer.up_votes }}</div>
     <div>Down votes: {{ answer.down_votes }}</div>
     <div>Net positive votes: {{ answer.net_votes }} </div>
-    <div style="height: 100px">{{ answer.answer_text | smarturlize}}.</div>
+    <div>{{ answer.answer_text | smarturlize}}.</div>
 
 
 {% endfor %}
