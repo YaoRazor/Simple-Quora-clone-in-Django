@@ -47,31 +47,14 @@
           <a href="{% url 'authentication:register_user' %}">Register </a> 
         </li>
         <li>
-          <a href="/admin/">Admin</a>
+          <a href="/admin/">Upload photos</a>
         </li>
-
           <li>
-              <a href="{% url 'photologue:pl-photo-archive' %}">Date views</a>
+              <a href="{% url 'photologue:pl-photo-archive' %}">Photos views</a>
           </li>
-
-          <li class="galleries dropdown">
-					<a data-target="#" href="" class="dropdown-toggle" data-toggle="dropdown">
-			            Gallery views<b class="caret"></b>
-			        </a>
-					<ul class="dropdown-menu">
-						<li class="sub-page"><a href="{% url 'photologue:pl-gallery-archive' %}">Date views</a></li>
-						<li class="sub-page"><a href="{% url 'photologue:gallery-list' %}">List views</a></li>
-					</ul>
-				</li>
-			    <li class="photos dropdown">
-					<a data-target="#" href="" class="dropdown-toggle" data-toggle="dropdown">
-			            Photo views<b class="caret"></b>
-			        </a>
-					<ul class="dropdown-menu">
-						<li class="sub-page"><a href="{% url 'photologue:pl-photo-archive' %}">Date views</a></li>
-						<li class="sub-page"><a href="{% url 'photologue:photo-list' %}">List views</a></li>
-					</ul>
-				</li>
+{#        <li>#}
+{#            <a href="{% url 'photologue:photo-list' %}">List views</a>#}
+{#        </li>#}
       </ul>
       <ul class="nav navbar-right navbar-nav">
         <li class="dropdown">
