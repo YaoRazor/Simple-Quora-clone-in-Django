@@ -9,12 +9,26 @@ Currently in beta
 
 ## Versions
 
-### [0.6] (http://shielded-escarpment-9491.herokuapp.com/polls/)
+### [0.6] 
 - Requriment 1, 2, 3, 4, 8, 9 completed
 
-### [0.7] (http://shielded-escarpment-9491.herokuapp.com/polls/)
+### [0.7] 
 - Requriment 5 completed
 - You can add tags to your questions and click on a specific tag will give you all the questions that have the tag sorted by the   question publication time
+- 
+
+### [1.0]
+- All requirements are completed
+- 
+
+## Design
+
+### Project architecture
+This project is designed using Django and deployed to Heroku cloud platform using PostGreSQL as the database to store data. 
+Under the top-level folder of the project, there are three apps. Polls app is the core function of this project, Authentication app is used to handle the user registration and login. Smarturlize app is used to detect the hyperlink in text. Django-photologue app is integrated to provide the photos and gallerys function. 
+
+### Polls App
+This app is developed using Django's MVC pattern. Templates folder store the view of the page, urls.py is servelet dispacher, views is the controller. 
 
 
 ## Instruction
