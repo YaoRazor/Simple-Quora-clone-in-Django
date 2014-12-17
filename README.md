@@ -21,18 +21,14 @@ Currently in beta
 
 ### How to use
 
-before you can create or answer questions, you need an account. With no account, you can only view questions
-I have one for you. username: test. password: test
+before you can create or answer questions, you need an account. With no account, you can only view questions.
+I have one for you. 
 
 As always, you can register you own username
 
 #### Home page (http://shielded-escarpment-9491.herokuapp.com/polls/)
 Feel free to register an account and play
 
-#### Admin page (http://shielded-escarpment-9491.herokuapp.com/admin/)
-account:
-username:admin
-password:admin
 
 ## Thanks
 - Professor Jeffery Korn
