@@ -14,12 +14,11 @@ Currently in beta
 
 ### [0.7] 
 - Requriment 5 completed
-- You can add tags to your questions and click on a specific tag will give you all the questions that have the tag sorted by the   question publication time
-- 
+
 
 ### [1.0]
-- All requirements are completed with some additional function implemented for fun
-- 
+- close
+
 
 ## Design
 
