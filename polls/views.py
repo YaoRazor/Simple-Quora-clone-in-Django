@@ -261,15 +261,15 @@ def rss(request, question_id):
     )
     feed.add_item(
         title=question.question_title,
-        link= "www.facebook.com",
+        link=u"www.facebook.com",
         description=question.question_text)
 
-    # for answer in answers:
-    #     feed.add_item(
-    #         answer_text=answer.answer_text,
-    #         #up_votes=str(answer.up_votes),
-    #         #down_votes=str(answer.down_votes)
-    #     )
+    for answer in answers:
+        feed.add_item(
+            title=u"answer",
+            link=u"www.facebook.com",
+            description=answer.answer_text,)
+            #up_votes=str(answer.up_votes),
 
     # Write all the feeds in a string
     str=feed.writeString('utf-8')
